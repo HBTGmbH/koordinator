@@ -1,0 +1,37 @@
+[package]
+name = "koordinator"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kai Burjack <kai.burjack@hbt.de>"]
+description = "Kubernetes container lifecycle coordinator"
+license = "MIT"
+repository = "https://github.com/HBTGmbH/koordinator"
+homepage = "https://github.com/HBTGmbH/koordinator"
+
+[[bin]]
+name = "koordinator"
+path = "src/koordinator.rs"
+
+[[bin]]
+name = "copy"
+path = "src/copy.rs"
+
+[dependencies]
+libc = "0.2"
+kube = { version = "0.91", default-features = false, features = ["client", "runtime", "rustls-tls"] }
+k8s-openapi = { version = "0.22", features = ["v1_29"] }
+tokio = { version = "1", features = ["full"] }
+tokio-stream = "0.1"
+tracing = { version = "0.1" }
+tracing-subscriber = { version = "0.3", features = ["json"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+duration-str = { version = "0.7", default-features = false, features = ["serde"] }
+
+[profile.min-size-rel]
+inherits = "release"
+strip = true
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
