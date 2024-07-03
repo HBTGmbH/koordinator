@@ -1,4 +1,4 @@
-FROM rustlang/rust:nightly-alpine3.19 AS builder
+FROM rustlang/rust:nightly-alpine3.20 AS builder
 WORKDIR /app
 COPY Cargo.toml Cargo.lock ./
 COPY src/ src/
